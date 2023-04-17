@@ -52,7 +52,7 @@ get_arch_and_remote_version() {
 }
 get_local_version(){
 
-    if [ ! -f /etc/catwrt-release ]; then
+    if [ ! -f /etc/catwrt_release ]; then
         local_error "version file"
         exit 1
     fi
