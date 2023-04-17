@@ -3,7 +3,7 @@
  # @Author: timochan
  # @Date: 2023-02-03 19:45:22
  # @LastEditors: timochan,miaoermua
- # @LastEditTime: 2023-4-6 18:11:42
+ # @LastEditTime: 2023-4-17 14:05:21
  # @FilePath: /miaoermua/catwrt-update/bash/catwrt-update_6.1.sh
 ### 
 remote_error() {
@@ -11,7 +11,7 @@ remote_error() {
     exit 1
 }
 local_error() {
-    echo "Local $1 get failed, please check your /etc/catwrt-release!"
+    echo "Local $1 get failed, please check your /etc/catwrt_release!"
     exit 1
 }
 get_remote_version(){
@@ -56,21 +56,21 @@ get_local_version(){
         local_error "version file"
         exit 1
     fi
-    version_local=`cat /etc/catwrt-release | grep 'ver' | cut -d '=' -f 2`
-    hash_local=`cat /etc/catwrt-release | grep 'hash' | cut -d '=' -f 2`
+    version_local=`cat /etc/catwrt_release | grep 'ver' | cut -d '=' -f 2`
+    hash_local=`cat /etc/catwrt_release | grep 'hash' | cut -d '=' -f 2`
 
 
 }
 contrast_version(){
     if [ $version_remote == $version_local ] && [ $hash_remote == $hash_local ]; then
-        echo "================================"
+        echo "======================================"
         echo "Your CatWrt is up to date!"
-        echo "================================"
+        echo "======================================"
     else
-        echo "================================"
+        echo "======================================"
         echo "Your CatWrt is not up to date, You should upgrade it!"
         echo "You can visit 'https://www.miaoer.xyz/posts/network/catwrt' to get more information!"
-        echo "================================"
+        echo "======================================"
     fi
 }
 print_version(){
@@ -78,7 +78,7 @@ print_version(){
         echo "Remote Version : $version_remote"
         echo "Local  Hash : $hash_local"
         echo "Remote Hash : $hash_remote"
-        echo "================================"
+        echo "======================================"
 }
 main(){
     get_arch_and_remote_version
