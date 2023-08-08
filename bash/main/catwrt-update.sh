@@ -8,7 +8,7 @@
 ###
 
 API_URL="https://api.miaoer.xyz/api/v2/snippets/catwrt/update"
-VERSION_FILE="/etc/catwrt-release"
+VERSION_FILE="/etc/catwrt_release"
 
 remote_error() {
     echo "Remote $1 get failed for arch: $arch_self, please check your network!"
