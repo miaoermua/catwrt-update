@@ -17,19 +17,19 @@ local_error() {
 get_remote_version(){
     arch_self=$1
     if [ $arch_self == "x86_64" ]; then
-    version_remote=`curl https://api.miaoer.xyz/api/v2/snippets/catwrt/check_update | jq -r '.ver_amd64'`
+    version_remote=`curl https://api.miaoer.xyz/api/v2/snippets/catwrt/update | jq -r '.version_amd64'`
     elif [ $arch_self == "aarch64" ]; then
-    version_remote=`curl https://api.miaoer.xyz/api/v2/snippets/catwrt/check_update | jq -r '.ver_rkarm'`
+    version_remote=`curl https://api.miaoer.xyz/api/v2/snippets/catwrt/update | jq -r '.version_rock64'`
     elif [ $arch_self == "mips" ]; then
-    version_remote=`curl https://api.miaoer.xyz/api/v2/snippets/catwrt/check_update | jq -r '.ver_wireless'`
+    version_remote=`curl https://api.miaoer.xyz/api/v2/snippets/catwrt/update | jq -r '.version_mipsel'`
     fi
 
     if [ $arch_self == "x86_64" ]; then
-        hash_remote=`curl https://api.miaoer.xyz/api/v2/snippets/catwrt/check_update | jq -r '.hash_amd64'`
+        hash_remote=`curl https://api.miaoer.xyz/api/v2/snippets/catwrt/update | jq -r '.hash_amd64'`
     elif [ $arch_self == "aarch64" ]; then
-        hash_remote=`curl https://api.miaoer.xyz/api/v2/snippets/catwrt/check_update | jq -r '.hash_rkarm'`
+        hash_remote=`curl https://api.miaoer.xyz/api/v2/snippets/catwrt/update | jq -r '.hash_rock64'`
     elif [ $arch_self == "mips" ]; then
-        hash_remote=`curl https://api.miaoer.xyz/api/v2/snippets/catwrt/check_update | jq -r '.hash_wireless'`
+        hash_remote=`curl https://api.miaoer.xyz/api/v2/snippets/catwrt/update | jq -r '.hash_mipsel'`
     else 
         echo "Your system is not supported!"
         exit 1
@@ -56,8 +56,10 @@ get_local_version(){
         local_error "version file"
         exit 1
     fi
-    version_local=`cat /etc/catwrt-release | grep 'ver' | cut -d '=' -f 2`
+    version_local=`cat /etc/catwrt-release | grep 'version' | cut -d '=' -f 2`
     hash_local=`cat /etc/catwrt-release | grep 'hash' | cut -d '=' -f 2`
+    source_local=`cat /etc/catwrt-release | grep 'source' | cut -d '=' -f 2`
+    arch_local=`cat /etc/catwrt-release | grep 'arch' | cut -d '=' -f 2`
 
 
 }
