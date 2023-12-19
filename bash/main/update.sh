@@ -3,7 +3,7 @@
 # @Author: timochan
 # @Date: 2023-02-03 19:45:22
  # @LastEditors: 2860950766@qq.com
- # @LastEditTime: 2023-10-17 00:00:00
+ # @LastEditTime: 2023-10-17 00:41:42
  # @FilePath: \undefinedd:\Git\catwrt-update\bash\main\update.sh
 ###
 
@@ -59,17 +59,16 @@ print_version() {
 
     if [ "$arch_local" = "amd64" ]; then
          links=$(curl -s $API_URL | jq -r '.amd64.links')
-         echo $links
+         echo x86_64 Latest: $links
         elif [ "$arch_local" = "mt798x" ]; then
             links=$(curl -s $API_URL | jq -r '.mt798x.links')
-            echo $links
+            echo x86_64 Latest: $links
         fi
 }
 sysupgrade() {
 if [ "$arch_local" = "amd64" ]; then
 
   amd64_sysup=$(curl -s $API_URL | jq -r '.amd64.sysup')
-  amd64_sysup_legacy=$(curl -s $API_URL | jq -r '.amd64.sysup-legacy')
 
   if fdisk -l | grep -q sda128; then
     # EFI Boot
@@ -83,6 +82,7 @@ if [ "$arch_local" = "amd64" ]; then
   
   else
     # Legacy BIOS Boot
+    amd64_sysup_legacy=$(curl -s $API_URL | jq -r '.amd64.sysuplegacy')
     echo "Legacy BIOS Boot detected. Recommend upgrade command:"
     echo $amd64_sysup_legacy
   fi
